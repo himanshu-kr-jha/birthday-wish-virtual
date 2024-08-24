@@ -10,9 +10,28 @@
     />
     <link rel="shortcut icon" type="image/png" href="/wish/heart.svg" />
     <link rel="stylesheet" href="/wish/style.css" />
-    
   </head>
   <style>
+    body {
+            background-image: url('/imagebackground.avif');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Raleway', sans-serif;
+            color:black;
+            text-align: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+
+            /* Flexbox properties for centering */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     .girl-dp {
       width: 100%;
       height: auto;
@@ -131,8 +150,9 @@
         <p class="last-smile">:)</p>
       </div>
     </div>
+    <audio id="background-audio" src="/song.webm" loop autoplay style="display: none;"></audio>
   </body>
-
+  <!-- <script src="/music.js"></script> -->
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
   <script type="text/babel" src="/wish/main.js"></script>

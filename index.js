@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.js
 const sendMail = require('./mail');
+const { error } = require("console");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(flash());
@@ -55,7 +56,7 @@ passport.use(new LocalStrategy(
   (username, password, done) => {
     const user = users.find(u => u.username === username);
     if (!user) return done(null, false, { message: 'Incorrect username.' });
-    
+
     bcrypt.compare(password, user.password, (err, result) => {
       if (err) return done(err);
       if (result) return done(null, user);
@@ -85,26 +86,55 @@ app.get("/", isAuthenticated, (req, res) => {
   res.render("home.ejs");
 });
 app.get("/submit", (req, res) => {
-    res.render("submission.ejs");
-  });
-  app.post('/send-feedback', (req, res) => {
-    const { question1, question2, question3} = req.body;
-    const answers = `
-      Its a ${question1}
-      -> ${question2}
-      -> ${question3}
-    `;
-  
-    sendMail(process.env.EMAIL_USER, 'Romantic Questions Answers', answers);
-    res.redirect("/submit");
-  });
-  
+  res.render("submission.ejs");
+});
+app.post('/send-feedback', (req, res) => {
+  const { question1, question2, question3 } = req.body;
+
+  // Set the subject based on the answer to question1
+  let subject;
+  switch (question1.toLowerCase()) {
+    case 'complaint':
+      subject = 'A Gentle Complaint for You';
+      break;
+    case 'love':
+      subject = 'A Love Note Just for You';
+      break;
+    case 'serious matter':
+      subject = 'A Serious Matter We Need to Discuss';
+      break;
+    case 'gossip':
+      subject = 'I have interesting gossip.';
+      break;
+    default:
+      subject = 'A Message from Your Loved One';
+  }
+
+  // Prepare the email content
+  const answers = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+      <h2 style="color: #5A9;">She has something for you</h2>
+      <p style="font-size: 18px;">It's a <strong>${question1}</strong></p>
+      <p style="font-size: 16px;">&rarr; <strong>${question2}</strong></p>
+      <p style="font-size: 16px;">&rarr; <strong>${question3}</strong></p>
+      <p style="font-size: 14px; color: #888;">Your love 💖</p>
+    </div>
+  `;
+
+  // Send the email
+  sendMail(process.env.EMAIL_USER, subject, answers);
+
+  // Redirect to a submission page
+  res.redirect("/submit");
+});
+
+
 app.get("/questions", (req, res) => {
   res.render("questions.ejs");
 });
 
 app.post("/check-answers", (req, res) => {
-  const { question1, question2 } = req.body;
+  const { question1, question2, question3, question4, question5, question6 } = req.body;
 
   // Define the correct answers
   const correctAnswers = {
@@ -116,17 +146,28 @@ app.post("/check-answers", (req, res) => {
     question6: '2'
   };
 
-  // Check if the answers are correct
-  if (question1 === correctAnswers.question1 && question2 === correctAnswers.question2) {
+  // Check if all the answers are correct
+  const answers = [question1, question2, question3, question4, question5, question6];
+  const keys = Object.keys(correctAnswers);
+
+  let allCorrect = true;
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i] !== correctAnswers[keys[i]]) {
+      allCorrect = false;
+      break;
+    }
+  }
+
+  if (allCorrect) {
     req.login(users[0], (err) => { // Log in the user
       if (err) return next(err);
       res.redirect("/");
     });
   } else {
-    req.flash('error', 'Incorrect answers. Please try again.');
-    res.redirect("/questions");
+    res.render("error");
   }
 });
+
 
 app.get("/first", (req, res) => {
   res.render("wheeloflove.ejs");
@@ -141,13 +182,12 @@ app.get("/treewish", (req, res) => {
 });
 
 app.get("/feedback", (req, res) => {
-    res.render("feedback.ejs");
-  });
-  
+  res.render("feedback.ejs");
+});
 
-  const PORT = process.env.PORT || 8000;
 
-  app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}.`);
-  });
-  
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}.`);
+});

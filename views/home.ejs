@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, My Love!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/gift.css">
+<% layout("boilerplate") %>
     <style>
         /* Add this style to set the background image on the entire site */
         body {
@@ -94,7 +87,7 @@
         <!-- Hidden gift options -->
         <div class="button-container">
             <p>Choose your gift!</p>
-            <a href="/first" class="gift-button" target="_blank">Gift 1</a>
+            <a href="/first" class="gift-button">Gift 1</a>
             <a href="/wish" class="gift-button" target="_blank">Gift 2</a>
             <a href="/treewish" class="gift-button" target="_blank">Gift 3</a>
         </div>
@@ -102,47 +95,15 @@
         <!-- Connect link -->
          <br>
         <a href="/feedback" class="connect-link">Connect with me anytime you want</a>
+
     </div>
-
-    <audio id="background-audio" src="/hbd.mp3" loop autoplay style="display: none;"></audio>
-
-    <script>
-        // Get the audio element
-        const audio = document.getElementById('background-audio');
-
-        // Function to play the audio
-        function playAudio() {
-            audio.play().catch(error => {
-                console.log('Audio playback failed:', error);
-            });
-        }
-
-        // Function to stop the audio
-        function stopAudio() {
-            audio.pause();
-        }
-
-        // Start the audio immediately when the page loads
-        playAudio();
-
-        // Stop the audio when the user leaves the page or switches tabs
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                stopAudio();
-            } else {
-                playAudio();
-            }
-        });
-
-        // Get the "Thank Me" button and the gift options container
+    <script>// Get the "Thank Me" button and the gift options container
         const thankButton = document.getElementById('thank-button');
         const buttonContainer = document.querySelector('.button-container');
-
+    
         // Show the gift options when "Thank Me" is clicked
         thankButton.addEventListener('click', function() {
             buttonContainer.style.display = 'block'; // Show the gift options
             thankButton.style.display = 'none'; // Hide the "Thank Me" button
-        });
-    </script>
+        });</script>
 </body>
-</html>

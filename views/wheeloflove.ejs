@@ -26,36 +26,5 @@ body {
             <button onclick="adjustDay(1)">▼</button>
         </div>
     </div>
-    <audio id="background-audio" src="/song.webm" loop autoplay style="display: none;"></audio>
-
-    <script>
-        // Get the audio element
-        const audio = document.getElementById('background-audio');
-
-        // Function to play the audio
-        function playAudio() {
-            audio.play().catch(error => {
-                console.log('Audio playback failed:', error);
-            });
-            console.log("played");
-        }
-
-        // Function to stop the audio
-        function stopAudio() {
-            audio.pause();
-        }
-
-        // Start the audio when the page is loaded
-        window.addEventListener('load', playAudio);
-
-        // Stop the audio when the user leaves the page or switches tabs
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                stopAudio();
-            } else {
-                playAudio();
-            }
-        });
-    </script>
 </body>
 </html>
