@@ -1,6 +1,8 @@
 // mail.js
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+if(process.env.NODE_ENV!="production"){
+    require('dotenv').config()
+}
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
