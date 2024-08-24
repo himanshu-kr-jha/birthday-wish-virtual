@@ -37,10 +37,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const sendMail = require('./mail');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
-
 app.use(flash());
 
 app.use((req, res, next) => {
@@ -137,7 +133,7 @@ app.get("/first", (req, res) => {
 });
 
 app.get("/wish", (req, res) => {
-  res.render("wish.ejs");
+  res.render("index.ejs");
 });
 
 app.get("/treewish", (req, res) => {
@@ -149,6 +145,9 @@ app.get("/feedback", (req, res) => {
   });
   
 
-app.listen(8000, () => {
-  console.log("server started.");
-});
+  const PORT = process.env.PORT || 8000;
+
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}.`);
+  });
+  
