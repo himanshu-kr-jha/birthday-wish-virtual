@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Romantic Questions</title>
+  <style>
+    body {
+      font-family: 'Dancing Script', cursive;
+      background: url('/imagebackground.avif') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      max-width: 700px;
+      width: 100%;
+      backdrop-filter: blur(10px); /* Optional: adds a blur effect to the background */
+    }
+    h1 {
+      font-family: 'Dancing Script', cursive; /* Playful and cute font */
+      color: #e63946;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 36px; /* Larger font size for emphasis */
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-family: 'Quicksand', sans-serif; /* Playful and cute font */
+      color: #333;
+      font-size: 20px; /* Larger font size for readability */
+      position: relative;
+    }
+    .hint {
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+    }
+    .hint:hover {
+      text-decoration: underline;
+    }
+    .hint-text {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      top: 100%;
+      left: 0;
+      width: 300px;
+      font-size: 14px;
+      color: #333;
+      z-index: 1000;
+    }
+    label:hover .hint-text {
+      display: block;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: 'Quicksand', sans-serif; /* Playful and cute font */
+      background-color: #fff;
+      color: #333;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+    input[type="text"]:focus {
+      border-color: #e63946;
+      outline: none;
+      background-color: #f9f9f9;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #e63946;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-family: 'Quicksand', sans-serif; /* Playful and cute font */
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    button:hover {
+      background-color: #d62839;
+      transform: scale(1.05);
+    }
+    button:active {
+      background-color: #c8102e;
+      transform: scale(1);
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: 'Quicksand', sans-serif; /* Playful and cute font */
+      background-color: #fff;
+      color: #333;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+    select:focus {
+      border-color: #e63946;
+      outline: none;
+      background-color: #f9f9f9;
+    }
+    option {
+      padding: 10px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Lobster&display=swap">
+</head>
+<body>
+  <div class="container">
+    <h1>Answer the Romantic Questions</h1>
+    <form action="/send-feedback" method="POST">
+        <label for="question1">
+            What is it ?
+            <span class="hint">Hint
+              <span class="hint-text">Think about our bond and how you would describe our relationship.</span>
+            </span>
+          </label>
+          <select id="question1" name="question1">
+            <option value="Complaint">Complaint</option>
+            <option value="Love">Love</option>
+            <option value="Just casual talk">Just casual talk</option>
+            <option value="Serious matter">Serious matter</option>
+          </select>
+      <label for="question2">
+        What do you want to tell me baby ?
+        <span class="hint">Hint
+          <span class="hint-text">Just write it down.</span>
+        </span>
+      </label>
+      <input type="text" id="question2" name="question2">
+
+      <label for="question3">
+        What do you expect me to do?
+        <span class="hint">Hint
+          <span class="hint-text">Just share your feeling how you want me to be in this situation.</span>
+        </span>
+      </label>
+      <input type="text" id="question3" name="question3">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
