@@ -1,42 +1,53 @@
 <% layout("boilerplate") %>
-    <title>Waiting Room</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+<title>Waiting Room</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
 
-        .timer {
-            font-size: 3em;
-            color: #333;
-            margin-bottom: 20px;
-        }
+    .timer {
+        font-size: 3em;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-        .message {
-            font-size: 1.5em;
-            color: #555;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
+    .message {
+        font-size: 1.5em;
+        color: #555;
+    }
+    .redirect-button {
+        display: none; /* Hidden initially */
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: 600;
+        text-align: center;
+        background-color: #5A9;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid #333333;
+        margin-top: 20px;
+    }
+</style>
 <body>
     <div class="timer" id="timer">00:00</div>
-    <div class="message">Please wait while we prepare to let you in.</div>
-    <div class="message">Me usse samjha ke lata hu, bhot bolta h. But aate hi sorry bolega.</div>
-    <div class="message">But, one thing to admit, he loves you &hearts;, ALOT !!</div>
-    <div class="message">I have sent him the mail, aata hi hoga nikamma  !!</div>
-    <div class="message">Ab to smile kar do &smile; &smile;</div>
-
+    <div class="message">Me usse samjha ke lata hu, bhot bolta h. But aate hi sorry bolega. <br>
+        But, one thing to admit, he loves you ♥, ALOT !! <br>
+        I have sent him the mail, aata hi hoga nikamma !! <br>
+        Ab to smile kar do ⌣ ⌣</div>
+    <a id="redirectButton" class="redirect-button" href="<%= meeturl %>">Join the Meeting</a>
     <script>
-        // Set the timer duration in seconds
-        var duration = 300; // 5 minutes
+        var duration = <%= duration %>; // Time from the form submission
         var timerDisplay = document.getElementById('timer');
+        var redirectButton = document.getElementById('redirectButton');
 
         function startTimer(duration) {
             var timer = duration, minutes, seconds;
@@ -48,15 +59,15 @@
                 seconds = seconds < 10 ? "0" + seconds : seconds;
 
                 timerDisplay.textContent = minutes + ":" + seconds;
-
+                if (timer < duration-10) {
+                    redirectButton.style.display = 'inline-block'; // Show the redirect button
+                }
                 if (--timer < 0) {
                     clearInterval(countdown);
-                    window.location.href = "<%= meeturl %>"; // Redirects to the meeting URL
+                    window.location.href = "<%= meeturl %>"; // Redirect to the meeting URL
                 }
             }, 1000);
         }
-
-        // Start the timer when the page loads
         window.onload = function () {
             startTimer(duration);
         };

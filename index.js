@@ -204,7 +204,6 @@ app.post("/meet", (req, res) => {
   res.render("meet.ejs", { meeturl, duration: selectedTime });
 });
 
-
 app.get("/photos", (req, res) => {
   res.render("photos.ejs");
 });
