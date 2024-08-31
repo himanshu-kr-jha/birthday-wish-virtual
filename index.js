@@ -122,7 +122,7 @@ app.post('/send-feedback', (req, res) => {
   `;
 
   // Send the email
-  sendMail(process.env.EMAIL_USER, subject, answers);
+  sendMail(process.env.EMAIL_REC, subject, answers);
 
   // Redirect to a submission page
   res.redirect("/submit");
@@ -184,6 +184,31 @@ app.get("/treewish", (req, res) => {
 app.get("/feedback", (req, res) => {
   res.render("feedback.ejs");
 });
+app.post("/meet", (req, res) => {
+  let meeturl = process.env.MEET_URL;
+  let selectedTime = req.body.time; // Get the selected time from the form
+  
+  // Create the email content
+  const answers = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+          <h2 style="color: #5A9;">She has something for you</h2>
+          <p style="font-size: 16px;">Meeting URL: <a href="${meeturl}">${meeturl}</a></p>
+          <p style="font-size: 14px; color: #888;">He will be with you in ${selectedTime / 60} minutes. Your love 💖</p>
+      </div>
+  `;
+  
+  // Send the email
+  sendMail(process.env.EMAIL_USER, "Meeting Time", answers);
+  
+  // Render the waiting room with the selected timer
+  res.render("meet.ejs", { meeturl, duration: selectedTime });
+});
+
+
+app.get("/photos", (req, res) => {
+  res.render("photos.ejs");
+});
+
 
 
 const PORT = process.env.PORT || 8000;

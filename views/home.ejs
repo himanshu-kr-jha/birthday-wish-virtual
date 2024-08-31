@@ -1,80 +1,60 @@
 <% layout("boilerplate") %>
-    <style>
-        /* Add this style to set the background image on the entire site */
-        body {
-            background-image: url('/imagebackground.avif');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin: 0;
-            padding: 0;
-            font-family: 'Raleway', sans-serif;
-            color: #ffffff;
-            text-align: center;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
+<style>
+    body {
+        background-image: url('/imagebackground.avif');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        font-family: 'Raleway', sans-serif;
+        color: #ffffff;
+        text-align: center;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
 
-            /* Flexbox properties for centering */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .container {
-            padding: 20px;
-            border-radius: 10px;
-        }
+    .container {
+        padding: 20px;
+        border-radius: 10px;
+    }
 
-        .button-container {
-            display: none;
-            margin-top: 20px;
-        }
+    .thank-button, .gift-button, .connect-link {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: 600;
+        text-align: center;
+        background-color: #ffcccc;
+        color: #333333;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 10px;
+    }
 
-        .thank-button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            font-weight: 600;
-            text-align: center;
-            background-color: #f28a8a;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 20px;
-        }
+    .button-container {
+        display: none;
+        margin-top: 20px;
+    }
 
-        .gift-button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: 600;
-            text-align: center;
-            background-color: #ffcccc;
-            color: #333333;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin: 10px;
-        }
+    .dropdown-container {
+        margin-top: 20px;
+    }
 
-        .connect-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: 600;
-            text-align: center;
-            background-color: #ffffff;
-            color: #333333;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            border: 1px solid #333333;
-        }
-    </style>
+    .dropdown-container select {
+        padding: 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -92,12 +72,27 @@
             <a href="/treewish" class="gift-button" target="_blank">Gift 3</a>
         </div>
         
-        <!-- Connect link -->
-         <br>
+        <!-- Connect links -->
+        <br>
+        <!-- Dropdown to select time -->
+        <br>
+        <div class="dropdown-container">
+            <form id="meetForm" method="POST" action="/meet">
+                <label for="timeSelect" style="color: black;">In how much time do you want to meet him?</label>
+                <select name="time" id="timeSelect">
+                    <option value="180">3 Minutes</option>
+                    <option value="300">5 Minutes</option>
+                    <option value="600">10 Minutes</option>
+                    <option value="900">15 Minutes</option>
+                </select>
+                <button type="submit" class="thank-button">Confirm</button>
+            </form>
+        </div>
+        <br>
         <a href="/feedback" class="connect-link">Connect with me anytime you want</a>
-
     </div>
-    <script>// Get the "Thank Me" button and the gift options container
+    <script>
+        // Get the "Thank Me" button and the gift options container
         const thankButton = document.getElementById('thank-button');
         const buttonContainer = document.querySelector('.button-container');
     
@@ -105,5 +100,6 @@
         thankButton.addEventListener('click', function() {
             buttonContainer.style.display = 'block'; // Show the gift options
             thankButton.style.display = 'none'; // Hide the "Thank Me" button
-        });</script>
+        });
+    </script>
 </body>

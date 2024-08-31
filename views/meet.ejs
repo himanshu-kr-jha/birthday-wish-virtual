@@ -1,0 +1,64 @@
+<% layout("boilerplate") %>
+    <title>Waiting Room</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .timer {
+            font-size: 3em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #555;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+<body>
+    <div class="timer" id="timer">00:00</div>
+    <div class="message">Please wait while we prepare to let you in.</div>
+    <div class="message">Me usse samjha ke lata hu, bhot bolta h. But aate hi sorry bolega.</div>
+    <div class="message">But, one thing to admit, he loves you &hearts;, ALOT !!</div>
+    <div class="message">I have sent him the mail, aata hi hoga nikamma  !!</div>
+    <div class="message">Ab to smile kar do &smile; &smile;</div>
+
+    <script>
+        // Set the timer duration in seconds
+        var duration = 300; // 5 minutes
+        var timerDisplay = document.getElementById('timer');
+
+        function startTimer(duration) {
+            var timer = duration, minutes, seconds;
+            var countdown = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(countdown);
+                    window.location.href = "<%= meeturl %>"; // Redirects to the meeting URL
+                }
+            }, 1000);
+        }
+
+        // Start the timer when the page loads
+        window.onload = function () {
+            startTimer(duration);
+        };
+    </script>
+</body>
